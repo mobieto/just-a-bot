@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import botcmds
 
-TOKEN = 'NzMyNzQ2ODcwMDYwNzQ0ODI2.Xw5Fsw.fgDsyFsW_iwV_Ri2lQJuKAqefWQ'
+TOKEN = ''
 PREFIX = '-'
 
 client = discord.Client()
