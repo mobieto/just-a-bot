@@ -1,4 +1,2 @@
-# just-a-bot
-a test bot for discord for fun
-
-HELLO :)
+# swegbot
+a discord bot i made for fun
