@@ -11,8 +11,6 @@ async def get_embed(title, description):
         )
 
         return embed
-    except:
-        print('[send_embed] Failed to send embed')
 
 async def get_image_file_from_url(url):
     try:
@@ -20,7 +18,6 @@ async def get_image_file_from_url(url):
             stream = io.BytesIO(await response.read())
             return discord.File(stream, filename='image.png')
     except:
-         print('[send_image_from_url] Invalid URL')
          return False
 
 async def get_role_by_name(guild, rolename):
