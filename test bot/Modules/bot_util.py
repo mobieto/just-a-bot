@@ -26,6 +26,4 @@ async def get_role_by_name(guild, rolename):
             return role
 
 async def is_staff(user):
-    if user.guild_permissions.administrator:
-        return True
-
+    return user.guild_permissions.administrator
