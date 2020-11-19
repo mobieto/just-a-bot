@@ -76,7 +76,7 @@ async def on_message(msg):
         del args[0]
         
         if hasattr(bot_cmds, cmd):
-            result = await getattr(bot_cmds, cmd)(msg, args)
+            await getattr(bot_cmds, cmd)(msg, args)
         else:
             alias = ''
             for name in ALIASES.keys():
@@ -85,7 +85,7 @@ async def on_message(msg):
                     break
 
             if alias != ''  and hasattr(bot_cmds, alias):
-                result = await getattr(bot_cmds, alias)(msg, args)
+                await getattr(bot_cmds, alias)(msg, args)
             else:
                 await msg.add_reaction('❓')
     else:
