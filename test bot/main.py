@@ -7,10 +7,9 @@ PREFIX = '-'
 
 ALIASES = {
         'ppsize': ['peepeesize'],
-        'serverlock': ['slock'],
-        'serverunlock': ['sunlock'],
         'fact': ['randomfact'],
-        'lovecalculator': ['lcalculator', 'lc']
+        'lovecalculator': ['lcalculator', 'lc'],
+        'eightball': ['8ball']
     }
 
 intents = discord.Intents.default()
@@ -26,7 +25,8 @@ async def on_ready():
 @client.event
 async def on_member_join(user):
     await user.send('Welcome to '+user.guild.name)
-    await user.add_roles(user.guild.get_role(778695313677484089))
+    if user.guild.get_role(778695313677484089):
+        await user.add_roles(user.guild.get_role(778695313677484089))
 
     content = f'**Username:** {user.mention} ({user.id})\n'
     content += f'**Time:** {datetime.datetime.utcnow().strftime("%d %b %Y, %H:%M:%S UTC")}'
@@ -70,27 +70,28 @@ async def on_message_edit(old, new):
 
 @client.event
 async def on_message(msg):
-    if msg.content.startswith(PREFIX):
-        args = msg.content.split(' ')
-        cmd = args[0][1:len(args[0])].lower()
-        del args[0]
-        
-        if hasattr(bot_cmds, cmd):
-            await getattr(bot_cmds, cmd)(msg, args)
-        else:
-            alias = ''
-            for name in ALIASES.keys():
-                if cmd in ALIASES[name]:
-                    alias = name
-                    break
-
-            if alias != ''  and hasattr(bot_cmds, alias):
-                await getattr(bot_cmds, alias)(msg, args)
+    if str(msg.channel.type) != 'private':
+        if msg.content.startswith(PREFIX):
+            args = msg.content.split(' ')
+            cmd = args[0][1:len(args[0])].lower()
+            del args[0]
+            
+            if hasattr(bot_cmds, cmd):
+                await getattr(bot_cmds, cmd)(msg, args, client)
             else:
-                await msg.add_reaction('❓')
-    else:
-        if msg.channel == client.get_channel(778616463530786826):
-            await msg.add_reaction('👍')
-            await msg.add_reaction('👎')
+                alias = ''
+                for name in ALIASES.keys():
+                    if cmd in ALIASES[name]:
+                        alias = name
+                        break
+
+                if alias != ''  and hasattr(bot_cmds, alias):
+                    await getattr(bot_cmds, alias)(msg, args, client)
+                else:
+                    await msg.add_reaction('❓')
+        else:
+            if msg.channel == client.get_channel(778616463530786826):
+                await msg.add_reaction('👍')
+                await msg.add_reaction('👎')
 
 client.run(TOKEN)
