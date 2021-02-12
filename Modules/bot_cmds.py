@@ -78,21 +78,24 @@ async def cat(msg, args, client=None):
         await msg.channel.send(embed=embed)
 
 async def binomialexpand(msg, args, client=None):
-    x, y, n = float(args[0]), float(args[1]), float(args[2])   
-    n = n > 256 and 256 or n
-    
-    terms = []
-    terms.append(str(x**n))
-    
-    for i in range(1, n+1):
-        t1 = await bot_util.nCr(n, i)
-        t2 = x**(n-i)
-        t3 = y**i
-        total = t1*t2*t3
-        term = str(total)+'x'+(i != 1 and '^'+str(i) or '')
-        terms.append(term)
+    try:
+        x, y, n = float(args[0]), float(args[1]), float(args[2])   
+        n = n > 256 and 256 or n
+        
+        terms = []
+        terms.append(str(x**n))
+        
+        for i in range(1, n+1):
+            t1 = await bot_util.nCr(n, i)
+            t2 = x**(n-i)
+            t3 = y**i
+            total = t1*t2*t3
+            term = str(total)+'x'+(i != 1 and '^'+str(i) or '')
+            terms.append(term)
 
-    await msg.channel.send(' + '.join(terms))
+        await msg.channel.send(' + '.join(terms))
+    except:
+        await msg.channel.send('Something went wrong')
 
 async def kill(msg, args, client=None):
 	await msg.channel.send('The mighty ' + msg.author.mention + ' has slain the mongrel ' + args[0] + 'what a filthy way to die!')
