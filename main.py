@@ -9,7 +9,8 @@ ALIASES = {
         'ppsize': ['peepeesize'],
         'fact': ['randomfact'],
         'lovecalculator': ['lcalculator', 'lc'],
-        'eightball': ['8ball']
+        'eightball': ['8ball'],
+        'binomialexpand': ['bexpand']
     }
 
 intents = discord.Intents.default()
@@ -70,7 +71,8 @@ async def on_message_edit(old, new):
 
 @client.event
 async def on_message(msg):
-    if str(msg.channel.type) != 'private':
+    if msg.channel.type != 'private':
+        # Message sent in public channel
         if msg.content.startswith(PREFIX):
             args = msg.content.split(' ')
             cmd = args[0][1:len(args[0])].lower()
@@ -79,6 +81,7 @@ async def on_message(msg):
             if hasattr(bot_cmds, cmd):
                 await getattr(bot_cmds, cmd)(msg, args, client)
             else:
+                # Check if command is an alias
                 alias = ''
                 for name in ALIASES.keys():
                     if cmd in ALIASES[name]:
