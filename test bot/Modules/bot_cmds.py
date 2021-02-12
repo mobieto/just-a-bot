@@ -77,6 +77,29 @@ async def cat(msg, args, client=None):
         #imageFile = await bot_util.get_image_file_from_url(url)
         await msg.channel.send(embed=embed)
 
+async def binomialexpand(msg, args, client=None):
+    try:
+        x, y, n = float(args[0]), float(args[1]), int(args[2])   
+        n = n > 256 and 256 or n
+        
+        terms = []
+        terms.append(str(x**n))
+        
+        for i in range(1, n+1):
+            t1 = await bot_util.nCr(n, i)
+            t2 = x**(n-i)
+            t3 = y**i
+            total = t1*t2*t3
+            term = str(total)+'x'+(i != 1 and '^'+str(i) or '')
+            terms.append(term)
+
+        await msg.channel.send(' + '.join(terms))
+    except:
+        await msg.add_reaction('👎')
+                               
+async def kill(msg, args, client=None): #Credit: SpiderKnight68
+	await msg.channel.send('The mighty ' + msg.author.mention + ' has slain the mongrel ' + args[0] + ' what a filthy way to die!')
+
 async def dog(msg, args, client=None):
     async with session.get(DOG_API) as response:
         data = await response.text()
