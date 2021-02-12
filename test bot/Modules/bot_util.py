@@ -1,6 +1,9 @@
-import discord, io, aiohttp
+import discord, io, aiohttp, math
 
 session = aiohttp.ClientSession()
+
+async def nCr(n, r):
+    return math.factorial(n)/(math.factorial(r)*math.factorial(n - r))
 
 async def get_embed(title, description):
     try:
@@ -29,3 +32,4 @@ async def get_role_by_name(guild, rolename):
 
 async def is_staff(user):
     return user.guild_permissions.administrator
+
