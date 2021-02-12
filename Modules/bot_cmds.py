@@ -98,7 +98,7 @@ async def binomialexpand(msg, args, client=None):
         await msg.add_reaction('👎')
                                
 async def kill(msg, args, client=None):
-	await msg.channel.send('The mighty ' + msg.author.mention + ' has slain the mongrel ' + args[0] + 'what a filthy way to die!')
+	await msg.channel.send('The mighty ' + msg.author.mention + ' has slain the mongrel ' + args[0] + ' what a filthy way to die!')
 
 async def dog(msg, args, client=None):
     async with session.get(DOG_API) as response:
