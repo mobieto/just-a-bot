@@ -79,7 +79,7 @@ async def cat(msg, args, client=None):
 
 async def binomialexpand(msg, args, client=None):
     try:
-        x, y, n = float(args[0]), float(args[1]), float(args[2])   
+        x, y, n = float(args[0]), float(args[1]), int(args[2])   
         n = n > 256 and 256 or n
         
         terms = []
@@ -95,8 +95,8 @@ async def binomialexpand(msg, args, client=None):
 
         await msg.channel.send(' + '.join(terms))
     except:
-        await msg.channel.send('Something went wrong')
-
+        await msg.add_reaction('👎')
+                               
 async def kill(msg, args, client=None):
 	await msg.channel.send('The mighty ' + msg.author.mention + ' has slain the mongrel ' + args[0] + 'what a filthy way to die!')
 
