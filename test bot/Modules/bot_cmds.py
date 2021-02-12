@@ -79,9 +79,7 @@ async def cat(msg, args, client=None):
 
 async def binomialexpand(msg, args, client=None):
     try:
-        x, y, n = float(args[0]), float(args[1]), int(args[2])   
-        n = n > 256 and 256 or n
-        
+        x, y, n = float(args[0]), float(args[1]), int(args[2])         
         terms = []
         terms.append(str(x**n))
         
