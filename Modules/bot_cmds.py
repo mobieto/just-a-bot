@@ -62,6 +62,9 @@ async def help(msg, args, client):
 
 # FUN
 
+async def amongus(msg, args, client=None):
+    await msg.channel.send('@everyone amogus?')
+
 async def eightball(msg, args, client=None):
     await msg.channel.send(random.choice(eight_ball_replies))
 
