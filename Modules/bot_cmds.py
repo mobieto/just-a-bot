@@ -77,11 +77,21 @@ async def cat(msg, args, client=None):
         #imageFile = await bot_util.get_image_file_from_url(url)
         await msg.channel.send(embed=embed)
 
+async def quadratic(msg, args, client=None):
+    try:
+        a, b, c = float(args[0]), float(args[1]), float(args[2])
+        x1, x2 = await bot_util.quadratic(a, b, c)
+        if x1:
+            await msg.channel.send(f'x = {x1} | x = {x2}')
+        else:
+            await msg.channel.send('No solutions')
+    except Exception as e:
+        await msg.channel.send(e)
+
 async def binomialexpand(msg, args, client=None):
     try:
         x, y, n = float(args[0]), float(args[1]), int(args[2])   
-        n = n > 256 and 256 or n
-        
+
         terms = []
         terms.append(str(x**n))
         
@@ -94,8 +104,8 @@ async def binomialexpand(msg, args, client=None):
             terms.append(term)
 
         await msg.channel.send(' + '.join(terms))
-    except:
-        await msg.add_reaction('👎')
+    except Exception as e:
+        await msg.channel.send(e)
                                
 async def kill(msg, args, client=None):
 	await msg.channel.send('The mighty ' + msg.author.mention + ' has slain the mongrel ' + args[0] + ' what a filthy way to die!')
@@ -136,12 +146,12 @@ async def roll(msg, args, client=None):
 async def hug(msg, args, client=None):
     if len(args) > 0:
         target = args[0]
-        if '@' in args[0] and args[0] != '@':
+        if '@' in target and target != '@':
             async with session.get(HUG_API) as response:
                 data = await response.text()
                 url = json.loads(data)['link']
 
-                embed = discord.Embed(description=msg.author.mention+' hugs '+args[0]+'!')
+                embed = discord.Embed(description=msg.author.mention+' hugs '+target+'!')
                 embed.set_image(url=url)
                 embed.set_footer(text='Provided by some-random-api.ml')
 
@@ -152,12 +162,12 @@ async def hug(msg, args, client=None):
 async def pat(msg, args, client=None):
     if len(args) > 0:
         target = args[0]
-        if '@' in args[0] and args[0] != '@':
+        if '@' in target and target != '@':
             async with session.get(PAT_API) as response:
                 data = await response.text()
                 url = json.loads(data)['link']
 
-                embed = discord.Embed(description=msg.author.mention+' pats '+args[0]+'!')
+                embed = discord.Embed(description=msg.author.mention+' pats '+target+'!')
                 embed.set_image(url=url)
                 embed.set_footer(text='Provided by some-random-api.ml')
 
