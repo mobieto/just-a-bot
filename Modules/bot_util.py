@@ -30,7 +30,7 @@ async def get_image_file_from_url(url):
     try:
         async with session.get(url) as response:
             stream = io.BytesIO(await response.read())
-            return discord.File(stream, filename='image.png')
+            return open(stream)
     except Exception as e:
         return e
 
