@@ -31,8 +31,8 @@ async def get_image_file_from_url(url):
         async with session.get(url) as response:
             stream = io.BytesIO(await response.read())
             return discord.File(stream, filename='image.png')
-    except:
-        return False
+    except Exception as e:
+        return e
 
 async def get_role_by_name(guild, rolename):
     for role in guild.roles:
