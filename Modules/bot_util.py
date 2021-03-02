@@ -26,11 +26,11 @@ async def get_embed(title, description):
     except:
         return False
 
-async def get_image_file_from_url(url):
+async def get_bytes_from_url(url):
     try:
         async with session.get(url) as response:
             stream = io.BytesIO(await response.read())
-            return discord.File(stream)
+            return stream
     except Exception as e:
         return e
 
