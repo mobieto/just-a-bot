@@ -1,6 +1,6 @@
 import os, discord, json, random, aiohttp
 from Modules import bot_util
-from PIL import Image
+from PIL import Image, ImageFilter
 
 CAT_API = 'https://api.thecatapi.com/v1/images/search'
 DOG_API = 'https://some-random-api.ml/img/dog'
@@ -85,7 +85,9 @@ async def avatar(msg, args, client=None):
     if len(msg.mentions) > 0:
         for user in msg.mentions:
             img = await bot_util.get_image_file_from_url(str(user.avatar_url))
-            await msg.channel.send(file=discord.File(img))
+            im = Image.open(img)
+            im1 = im.filter(ImageFilter.BLUR)
+            await msg.channel.send(file=im1)
     else:
         await msg.channel.send(msg.author.avatar_url)
 
