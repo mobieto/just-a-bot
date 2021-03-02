@@ -81,7 +81,7 @@ async def cat(msg, args, client=None):
         await msg.channel.send(embed=embed)
 
 async def avatar(msg, args, client=None):
-    await msg.channel.send(msg.author.avatar)
+    await msg.channel.send(msg.author.avatar_url)
 
 async def quadratic(msg, args, client=None):
     try:
