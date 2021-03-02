@@ -1,4 +1,4 @@
-import os, discord, json, random, aiohttp, cv2
+import os, discord, json, random, aiohttp, PIL
 from Modules import bot_util
 
 CAT_API = 'https://api.thecatapi.com/v1/images/search'
