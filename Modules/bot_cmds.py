@@ -84,7 +84,7 @@ async def cat(msg, args, client=None):
 async def avatar(msg, args, client=None):
     if len(msg.mentions) > 0:
         for user in msg.mentions:
-            img = await bot_util.get_image_file_from_url(user.avatar_url)
+            img = await bot_util.get_image_file_from_url(str(user.avatar_url))
             await msg.channel.send(img)
     else:
         await msg.channel.send(msg.author.avatar_url)
