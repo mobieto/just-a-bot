@@ -83,7 +83,7 @@ async def cat(msg, args, client=None):
 async def avatar(msg, args, client=None):
     if msg.mentions.len() > 0:
         for user in msg.mentions:
-            await msg.channel.send(msg.author.avatar_url)
+            await msg.channel.send(user.avatar_url)
     else:
         await msg.channel.send(msg.author.avatar_url)
 
