@@ -1,4 +1,5 @@
 import discord, io, aiohttp, math
+from PIL import Image
 
 session = aiohttp.ClientSession()
 
@@ -33,6 +34,15 @@ async def get_bytes_from_url(url):
             return stream
     except Exception as e:
         return e
+
+async def get_filtered_file(imgbytes, filter):
+    im = Image.open(imgbytes)
+    filtered = im.filter(filter)
+    with io.BytesIO() as imgbinary:
+        filtered.save(imgbinary, 'PNG')
+        imgbinary.seek(0)
+        return discord.File(imgbinary, filename='image.png')
+
 
 async def get_role_by_name(guild, rolename):
     for role in guild.roles:
