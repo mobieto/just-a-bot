@@ -80,6 +80,9 @@ async def cat(msg, args, client=None):
         #imageFile = await bot_util.get_image_file_from_url(url)
         await msg.channel.send(embed=embed)
 
+async def avatar(msg, args, client=None):
+    await msg.channel.send(msg.author.avatar)
+
 async def quadratic(msg, args, client=None):
     try:
         a, b, c = float(args[0]), float(args[1]), float(args[2])

@@ -12,7 +12,7 @@ async def quadratic(a, b, c):
         x2 = (-b - math.sqrt(d)) / (2*a)
         return x1, x2
     except:
-        return False, False
+        return False
 
 async def get_embed(title, description):
     try:
