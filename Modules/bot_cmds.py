@@ -86,11 +86,11 @@ async def avatar(msg, args, client=None):
         for user in msg.mentions:
             img = await bot_util.get_bytes_from_url(str(user.avatar_url))
             im = Image.open(img)
-            filtered = im.filter(ImageFilter.BLUR)
+            filtered = im.filter(ImageFilter.GaussianBlur(15))
             with io.BytesIO() as imgbinary:
                 filtered.save(imgbinary, 'PNG')
                 imgbinary.seek(0)
-                await msg.channel.send(file=discord.File(imgbinary))
+                await msg.channel.send(file=discord.File(imgbinary, filename='image.png'))
     else:
         await msg.channel.send(msg.author.avatar_url)
 
