@@ -43,6 +43,16 @@ async def get_filtered_file(imgbytes, filter):
         imgbinary.seek(0)
         return discord.File(imgbinary, filename='image.png')
 
+async def monochromify_image(imgbytes):
+    img = Image.open(imgbytes)
+    thresh = 200
+    fn = lambda x : 255 if x > thresh else 0
+    r = img.convert('L').point(fn, mode='1')
+    with io.BytesIO() as imgbinary:
+        r.save(imgbinary, 'PNG')
+        imgbinary.seek(0)
+        return discord.File(imgbinary, filename='image.png')
+
 
 async def get_role_by_name(guild, rolename):
     for role in guild.roles:
