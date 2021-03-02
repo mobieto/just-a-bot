@@ -84,20 +84,19 @@ async def cat(msg, args, client=None):
 async def avatar(msg, args, client=None):
     if len(msg.mentions) > 0:
         for user in msg.mentions:
-            img = await bot_util.get_bytes_from_url(str(user.avatar_url))
             await msg.channel.send(user.avatar_url)
     else:
         await msg.channel.send(msg.author.avatar_url)
 
-async def monochrome(msg, args, client=None):
+async def greyscale(msg, args, client=None):
     if len(msg.mentions) > 0:
         for user in msg.mentions:
             img = await bot_util.get_bytes_from_url(str(user.avatar_url))
-            filtered = await bot_util.monochromify_image(img)
+            filtered = await bot_util.greyscale_image(img)
             await msg.channel.send(file=filtered)
     else:
         img = await bot_util.get_bytes_from_url(str(msg.author.avatar_url))
-        filtered = await bot_util.monochromify_image(img)
+        filtered = await bot_util.greyscale_image(img)
         await msg.channel.send(file=filtered)
 
 async def quadratic(msg, args, client=None):
