@@ -2,7 +2,7 @@ import discord, datetime
 from discord.ext import commands
 from Modules import bot_cmds, bot_util
 
-TOKEN = ''
+TOKEN = 'NzMyNzQ2ODcwMDYwNzQ0ODI2.Xw5Fsw.OwY-g-9IVWe7iqz7jZ4QN7W5hCk'
 PREFIX = '-'
 
 ALIASES = {
@@ -10,7 +10,8 @@ ALIASES = {
         'fact': ['randomfact'],
         'lovecalculator': ['lcalculator', 'lc'],
         'eightball': ['8ball'],
-        'binomialexpand': ['bexpand']
+        'binomialexpand': ['bexpand'],
+        'amongus': ['amogus', 'sus', 'impostor']
     }
 
 intents = discord.Intents.default()
@@ -71,15 +72,18 @@ async def on_message_edit(old, new):
 
 @client.event
 async def on_message(msg):
-    if str(msg.channel.type) != 'private':
+    if msg.channel.type != 'private':
+        # Message sent in public channel
         if msg.content.startswith(PREFIX):
             args = msg.content.split(' ')
             cmd = args[0][1:len(args[0])].lower()
             del args[0]
+            if cmd == 'rle' or cmd == 'rld': args = [' '.join(args)]
             
             if hasattr(bot_cmds, cmd):
                 await getattr(bot_cmds, cmd)(msg, args, client)
             else:
+                # Check if command is an alias
                 alias = ''
                 for name in ALIASES.keys():
                     if cmd in ALIASES[name]:
