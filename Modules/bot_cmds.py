@@ -99,6 +99,20 @@ async def greyscale(msg, args, client=None):
         filtered = await bot_util.greyscale_image(img)
         await msg.channel.send(file=filtered)
 
+async def rle(msg, args, client=None):
+    try:
+        string = args[0]
+        await msg.channel.send(bot_util.encode(string))
+    except Exception as e:
+        await msg.channel.send(e)
+
+async def rld(msg, args, client=None):
+    try:
+        string = args[0]
+        await msg.channel.send(bot_util.decode(string))
+    except Exception as e:
+        await msg.channel.send(e)
+
 async def quadratic(msg, args, client=None):
     try:
         a, b, c = float(args[0]), float(args[1]), float(args[2])

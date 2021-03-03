@@ -1,5 +1,5 @@
 import discord, io, aiohttp, math
-from PIL import Image
+from PIL import Image, ImageDraw
 
 session = aiohttp.ClientSession()
 
@@ -27,6 +27,36 @@ async def get_embed(title, description):
     except:
         return False
 
+async def encode(string):
+    if not string or string == '': return ''
+    encoded = ''
+    prevchar = ''
+    i = 1
+
+    for char in string:
+        if char != prevchar:
+            if prevchar: encoded += str(i) + prevchar
+            i = 1
+            prevchar = char
+        else:
+            i += 1
+    encoded += str(i) + prevchar
+    
+    return encoded
+
+async def decode(string):
+    decoded = ''
+    i = ''
+
+    for char in string:
+        if char.isdigit():
+            i += char
+        else:
+            decoded += char * int(i)
+            i = ''
+
+    return decoded
+
 async def get_bytes_from_url(url):
     try:
         async with session.get(url) as response:
@@ -51,6 +81,8 @@ async def greyscale_image(imgbytes):
         imgbinary.seek(0)
         return discord.File(imgbinary, filename='image.png')
 
+async def blend_images(imgbytes1, imgbytes2):
+    return
 
 async def get_role_by_name(guild, rolename):
     for role in guild.roles:
