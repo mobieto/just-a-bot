@@ -10,8 +10,7 @@ ALIASES = {
         'fact': ['randomfact'],
         'lovecalculator': ['lcalculator', 'lc'],
         'eightball': ['8ball'],
-        'binomialexpand': ['bexpand'],
-        'amongus': ['amogus', 'sus', 'impostor']
+        'binomialexpand': ['bexpand']
     }
 
 intents = discord.Intents.default()
