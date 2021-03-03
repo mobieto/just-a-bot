@@ -1,5 +1,6 @@
-import os, discord, json, random, aiohttp
+import os, io, discord, json, random, aiohttp
 from Modules import bot_util
+from PIL import ImageFilter
 
 CAT_API = 'https://api.thecatapi.com/v1/images/search'
 DOG_API = 'https://some-random-api.ml/img/dog'
@@ -77,9 +78,53 @@ async def cat(msg, args, client=None):
         #imageFile = await bot_util.get_image_file_from_url(url)
         await msg.channel.send(embed=embed)
 
+async def avatar(msg, args, client=None):
+    if len(msg.mentions) > 0:
+        for user in msg.mentions:
+            await msg.channel.send(user.avatar_url)
+    else:
+        await msg.channel.send(msg.author.avatar_url)
+
+async def greyscale(msg, args, client=None):
+    if len(msg.mentions) > 0:
+        for user in msg.mentions:
+            img = await bot_util.get_bytes_from_url(str(user.avatar_url))
+            filtered = await bot_util.greyscale_image(img)
+            await msg.channel.send(file=filtered)
+    else:
+        img = await bot_util.get_bytes_from_url(str(msg.author.avatar_url))
+        filtered = await bot_util.greyscale_image(img)
+        await msg.channel.send(file=filtered)
+
+async def rle(msg, args, client=None):
+    try:
+        string = args[0]
+        await msg.channel.send(await bot_util.encode(string))
+    except Exception as e:
+        await msg.channel.send(e)
+
+async def rld(msg, args, client=None):
+    try:
+        string = args[0]
+        await msg.channel.send(await bot_util.decode(string))
+    except Exception as e:
+        await msg.channel.send(e)
+
+async def quadratic(msg, args, client=None):
+    try:
+        a, b, c = float(args[0]), float(args[1]), float(args[2])
+        x1, x2 = await bot_util.quadratic(a, b, c)
+        if x1:
+            await msg.channel.send(f'x = {x1} | x = {x2}')
+        else:
+            await msg.channel.send('No solutions')
+    except Exception as e:
+        await msg.channel.send(e)
+
 async def binomialexpand(msg, args, client=None):
     try:
-        x, y, n = float(args[0]), float(args[1]), int(args[2])         
+        x, y, n = float(args[0]), float(args[1]), int(args[2])   
+
         terms = []
         terms.append(str(x**n))
         
@@ -92,11 +137,8 @@ async def binomialexpand(msg, args, client=None):
             terms.append(term)
 
         await msg.channel.send(' + '.join(terms))
-    except:
-        await msg.add_reaction('👎')
-                               
-async def kill(msg, args, client=None): #Credit: SpiderKnight68
-	await msg.channel.send('The mighty ' + msg.author.mention + ' has slain the mongrel ' + args[0] + ' what a filthy way to die!')
+    except Exception as e:
+        await msg.channel.send(e)                           
 
 async def dog(msg, args, client=None):
     async with session.get(DOG_API) as response:
@@ -134,12 +176,12 @@ async def roll(msg, args, client=None):
 async def hug(msg, args, client=None):
     if len(args) > 0:
         target = args[0]
-        if '@' in args[0] and args[0] != '@':
+        if '@' in target and target != '@':
             async with session.get(HUG_API) as response:
                 data = await response.text()
                 url = json.loads(data)['link']
 
-                embed = discord.Embed(description=msg.author.mention+' hugs '+args[0]+'!')
+                embed = discord.Embed(description=msg.author.mention+' hugs '+target+'!')
                 embed.set_image(url=url)
                 embed.set_footer(text='Provided by some-random-api.ml')
 
@@ -150,12 +192,12 @@ async def hug(msg, args, client=None):
 async def pat(msg, args, client=None):
     if len(args) > 0:
         target = args[0]
-        if '@' in args[0] and args[0] != '@':
+        if '@' in target and target != '@':
             async with session.get(PAT_API) as response:
                 data = await response.text()
                 url = json.loads(data)['link']
 
-                embed = discord.Embed(description=msg.author.mention+' pats '+args[0]+'!')
+                embed = discord.Embed(description=msg.author.mention+' pats '+target+'!')
                 embed.set_image(url=url)
                 embed.set_footer(text='Provided by some-random-api.ml')
 
@@ -200,9 +242,6 @@ async def lovecalculator(msg, args, client=None):
         
         Embed = await bot_util.get_embed('Love Calculator', content)
         await msg.channel.send(embed=Embed)
-
-async def sexiest(msg, args, client=None):
-    await msg.channel.send('<@292419376961814528>')
     
 # MODERATION
 
