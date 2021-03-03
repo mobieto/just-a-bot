@@ -78,7 +78,7 @@ async def on_message(msg):
             args = msg.content.split(' ')
             cmd = args[0][1:len(args[0])].lower()
             del args[0]
-            if cmd == 'rle' or cmd == 'rld': args = [''.join(args)]
+            if cmd == 'rle' or cmd == 'rld': args = [' '.join(args)]
             
             if hasattr(bot_cmds, cmd):
                 await getattr(bot_cmds, cmd)(msg, args, client)
