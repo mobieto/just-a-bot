@@ -102,14 +102,14 @@ async def greyscale(msg, args, client=None):
 async def rle(msg, args, client=None):
     try:
         string = args[0]
-        await msg.channel.send(bot_util.encode(string))
+        await msg.channel.send(await bot_util.encode(string))
     except Exception as e:
         await msg.channel.send(e)
 
 async def rld(msg, args, client=None):
     try:
         string = args[0]
-        await msg.channel.send(bot_util.decode(string))
+        await msg.channel.send(await bot_util.decode(string))
     except Exception as e:
         await msg.channel.send(e)
 
