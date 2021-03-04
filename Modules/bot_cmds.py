@@ -1,7 +1,8 @@
-import os, io, discord, json, random, aiohttp
+import os, io, discord, json, random, aiohttp, wikipediaapi
 from Modules import bot_util
 from PIL import ImageFilter
 
+WIKI = wikipediaapi.Wikipedia('en')
 CAT_API = 'https://api.thecatapi.com/v1/images/search'
 DOG_API = 'https://some-random-api.ml/img/dog'
 FACT_API = 'https://uselessfacts.jsph.pl/random.json?language=en'
@@ -86,6 +87,14 @@ async def cat(msg, args, client=None):
         #imageFile = await bot_util.get_image_file_from_url(url)
         await msg.channel.send(embed=embed)
 
+async def wikipedia(msg, args, client=None):
+    arg = ' '.join(args)
+    page = WIKI.page(arg)
+    if page.exists():
+        msg.channel.send(page.summary)
+    else:
+        msg.channel.send('Page does not exist')
+
 async def avatar(msg, args, client=None):
     if len(msg.mentions) > 0:
         for user in msg.mentions:
@@ -105,15 +114,17 @@ async def greyscale(msg, args, client=None):
         await msg.channel.send(file=filtered)
 
 async def rle(msg, args, client=None):
+    arg = ' '.join(args)
     try:
-        string = args[0]
+        string = arg
         await msg.channel.send(await bot_util.encode(string))
     except Exception as e:
         await msg.channel.send(e)
 
 async def rld(msg, args, client=None):
+    arg = ' '.join(args)
     try:
-        string = args[0]
+        string = arg
         await msg.channel.send(await bot_util.decode(string))
     except Exception as e:
         await msg.channel.send(e)
