@@ -91,9 +91,9 @@ async def wikipedia(msg, args, client=None):
     arg = ' '.join(args)
     page = WIKI.page(arg)
     if page.exists():
-        msg.channel.send(page.summary)
+        await msg.channel.send(page.summary)
     else:
-        msg.channel.send('Page does not exist')
+        await msg.channel.send('Page does not exist')
 
 async def avatar(msg, args, client=None):
     if len(msg.mentions) > 0:
