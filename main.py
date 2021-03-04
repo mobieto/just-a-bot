@@ -72,7 +72,7 @@ async def on_message_edit(old, new):
 
 @client.event
 async def on_message(msg):
-    if msg.channel.type != 'private':
+    if not isinstance(msg.channel, discord.channel.DMChannel):
         # Message sent in public channel
         if msg.content.startswith(PREFIX):
             args = msg.content.split(' ')
