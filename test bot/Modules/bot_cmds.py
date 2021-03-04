@@ -21,6 +21,8 @@ eight_ball_replies = [
 
 help_message = """
 **I'm Swegbot! A general-purpose bot.**
+**() = REQUIRED**
+**[] = OPTIONAL**
 
 **General Commands:**
  > help - dms you this message
@@ -32,15 +34,21 @@ help_message = """
  > cat - sends a random cat image
  > panda - sends a random panda image
  > fact - sends a random fact (Provided by uselessfacts.jsph.pl)
- > dailyfact - sends a random DAILY fact
+ > dailyfact - sends a random daily fact (Provided by uselessfacts.jsph.pl)
  > lovecalculator (name1 name2) - calculates romance compatibility
  > ppsize - find out your pp size
- > hug (@name) - hug a person
- > pat (@name) - pat a person
+ > hug (@user) - hug a person
+ > pat (@user) - pat a person
+ > avatar [@user] - sends profile picture
+ > greyscale [@user] - sends a greyscaled version of profile picture
+ > binomialexpand (a, b, n) - expands expression using binomial expansion (a + b)^2 -> a^2 + 2ab + b^2
+ > quadratic (a, b, c) - calculates roots
+ > rle (string) - run length encodes given string
+ > rld (string) - run length decodes given string
 
 **Moderation Commands:**
- > mute (@name @name ...) - mute target
- > unmute (@name @name ...) - unmute target
+ > mute (@user @user ...) - mute target
+ > unmute (@user @user ...) - unmute target
  > lock - locks current channel (default role will not be able to message)
  > unlock - unlocks current channel
 
@@ -138,7 +146,7 @@ async def binomialexpand(msg, args, client=None):
 
         await msg.channel.send(' + '.join(terms))
     except Exception as e:
-        await msg.channel.send(e)                           
+        await msg.channel.send(e)
 
 async def dog(msg, args, client=None):
     async with session.get(DOG_API) as response:
