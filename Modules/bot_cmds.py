@@ -1,4 +1,5 @@
-import os, io, discord, json, random, aiohttp, wikipedia
+import os, io, discord, json, random, aiohttp
+import wikipedia as WIKI_API
 from Modules import bot_util
 from PIL import ImageFilter
 
@@ -90,10 +91,10 @@ async def cat(msg, args, client=None):
 async def wikipedia(msg, args, client=None):
     arg = ' '.join(args)
     try:
-        page = wikipedia.page(arg)
+        page = WIKI_API.page(arg)
         await msg.channel.send(page.content)
         await msg.channel.send(page.url)
-    except DisambiguationError:
+    except WIKI_API.DisambiguationError:
         await msg.channel.send('Multiple articles match that term. Please be more specific.')
 
 async def avatar(msg, args, client=None):
