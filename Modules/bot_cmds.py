@@ -100,8 +100,8 @@ async def wikipedia(msg, args, client=None):
         await msg.channel.send(f'{arg} may refer to:\n{options}')
     except WIKI_API.PageError:
         await msg.channel.send('Page does not exist')
-    except:
-        await msg.channel.send('Something went wrong')
+    except Exception as e:
+        await msg.channel.send(e)
 
 async def avatar(msg, args, client=None):
     if len(msg.mentions) > 0:
