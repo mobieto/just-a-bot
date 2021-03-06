@@ -1,8 +1,8 @@
-import os, io, discord, json, random, aiohttp
-import wikipedia as WIKI_API
+import os, io, discord, json, random, aiohttp, aiowiki
 from Modules import bot_util
 from PIL import ImageFilter
 
+WIKI_API = aiowiki.Wiki.wikipedia('en')
 CAT_API = 'https://api.thecatapi.com/v1/images/search'
 DOG_API = 'https://some-random-api.ml/img/dog'
 FACT_API = 'https://uselessfacts.jsph.pl/random.json?language=en'
@@ -90,16 +90,10 @@ async def cat(msg, args, client=None):
 
 async def wikipedia(msg, args, client=None):
     arg = ' '.join(args)
+    page = WIKI_API.get_page(arg)
     try:
-        page = WIKI_API.page(arg)
-        content = WIKI_API.summary(arg, sentences=4)
-        await msg.channel.send(content)
-        await msg.channel.send('<'+page.url+'>')
-    except WIKI_API.DisambiguationError as e:
-        options = '\n'.join(e.options)
-        await msg.channel.send(f'{arg} may refer to:\n{options}')
-    except WIKI_API.PageError:
-        await msg.channel.send('Page does not exist')
+        await msg.channel.send(page.summary)
+        await msg.channel.send(page.urls)
     except Exception as e:
         await msg.channel.send(e)
 
