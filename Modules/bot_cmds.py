@@ -94,7 +94,7 @@ async def wikipedia(msg, args, client=None):
         page = WIKI_API.page(arg)
         content = WIKI_API.summary(arg, sentences=12)
         await msg.channel.send(content)
-        await msg.channel.send(page.url)
+        await msg.channel.send('<'+page.url+'>')
     except WIKI_API.DisambiguationError:
         await msg.channel.send('Multiple articles match that term. Please be more specific.')
 
