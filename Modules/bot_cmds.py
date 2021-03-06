@@ -97,7 +97,7 @@ async def wikipedia(msg, args, client=None):
         await msg.channel.send('<'+page.url+'>')
     except WIKI_API.DisambiguationError:
         await msg.channel.send('Multiple articles match that term. Please be more specific')
-    except: WIKI_API.PageError:
+    except WIKI_API.PageError:
         await msg.channel.send('Page does not exist')
     except:
         await msg.channel.send('Something went wrong')
