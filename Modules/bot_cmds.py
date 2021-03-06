@@ -63,8 +63,6 @@ session = bot_util.session
 
 # GENERAL PURPOSE
 
-rate_limits = {}
-
 async def ping(msg, args, client=None):
     await msg.channel.send('Pong!')
 
@@ -91,22 +89,13 @@ async def cat(msg, args, client=None):
         await msg.channel.send(embed=embed)
 
 async def wikipedia(msg, args, client=None):
-    if not msg.author.name in rate_limits:
-        rate_limits[msg.author.name] = True
-
-
-        arg = ' '.join(args)
-        page = WIKI_API.get_page(arg)
-        try:
-            await msg.channel.send(await page.summary())
-            await msg.channel.send('<'+str(await page.urls()).split("'")[1]+'>')
-        except Exception as e:
-            await msg.channel.send(e)
-
-        time.sleep(2)
-        rate_limits.pop(msg.author.name, None)
-    else:
-        await msg.channel.send('SLOW DOWN THERE BUDDY')
+    arg = ' '.join(args)
+    page = WIKI_API.get_page(arg)
+    try:
+        await msg.channel.send(await page.summary())
+        await msg.channel.send('<'+str(await page.urls()).split("'")[1]+'>')
+    except Exception as e:
+        await msg.channel.send(e)
 
 async def avatar(msg, args, client=None):
     if len(msg.mentions) > 0:
