@@ -96,7 +96,8 @@ async def wikipedia(msg, args, client=None):
         await msg.channel.send(content)
         await msg.channel.send('<'+page.url+'>')
     except WIKI_API.DisambiguationError as e:
-        await msg.channel.send(f'{arg} may refer to:\n{'\n'.join(e.options)}')
+        options = '\n'.join(e.options)
+        await msg.channel.send(f'{arg} may refer to:\n{options}')
     except WIKI_API.PageError:
         await msg.channel.send('Page does not exist')
     except:
