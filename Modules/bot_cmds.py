@@ -90,7 +90,7 @@ async def cat(msg, args, client=None):
 
 async def wikipedia(msg, args, client=None):
     arg = ' '.join(args)
-    page = await WIKI_API.get_page(arg)
+    page = WIKI_API.get_page(arg)
     try:
         await msg.channel.send(await page.summary())
         await msg.channel.send(await page.urls())
