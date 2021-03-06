@@ -92,8 +92,8 @@ async def wikipedia(msg, args, client=None):
     arg = ' '.join(args)
     page = await WIKI_API.get_page(arg)
     try:
-        await msg.channel.send(await page.summary()
-        await msg.channel.send(await page.urls()
+        await msg.channel.send(await page.summary())
+        await msg.channel.send(await page.urls())
     except Exception as e:
         await msg.channel.send(e)
 
