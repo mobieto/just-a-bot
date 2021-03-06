@@ -106,7 +106,7 @@ async def wikipedia(msg, args, client=None):
         time.sleep(2)
         rate_limits.pop(msg.author.name, None)
     else:
-        msg.channel.send('SLOW DOWN THERE BUDDY')
+        await msg.channel.send('SLOW DOWN THERE BUDDY')
 
 async def avatar(msg, args, client=None):
     if len(msg.mentions) > 0:
