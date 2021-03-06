@@ -91,8 +91,8 @@ async def cat(msg, args, client=None):
 async def wikipedia(msg, args, client=None):
     arg = ' '.join(args)
     try:
-        page = WIKI_API.page(arg)
-        content = WIKI_API.summary(arg, sentences=4)
+        page = await WIKI_API.page(arg)
+        content = await WIKI_API.summary(arg, sentences=4)
         await msg.channel.send(content)
         await msg.channel.send('<'+page.url+'>')
     except WIKI_API.DisambiguationError as e:
