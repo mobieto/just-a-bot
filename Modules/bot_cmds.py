@@ -92,7 +92,7 @@ async def wikipedia(msg, args, client=None):
     arg = ' '.join(args)
     try:
         page = WIKI_API.page(arg)
-        content = WIKI_API.summary(arg, sentences=12)
+        content = WIKI_API.summary(arg, sentences=6)
         await msg.channel.send(content)
         await msg.channel.send('<'+page.url+'>')
     except WIKI_API.DisambiguationError:
