@@ -1,8 +1,7 @@
-import os, io, discord, json, random, aiohttp, wikipediaapi
+import os, io, discord, json, random, aiohttp, wikipedia
 from Modules import bot_util
 from PIL import ImageFilter
 
-WIKI = wikipediaapi.Wikipedia('en')
 CAT_API = 'https://api.thecatapi.com/v1/images/search'
 DOG_API = 'https://some-random-api.ml/img/dog'
 FACT_API = 'https://uselessfacts.jsph.pl/random.json?language=en'
@@ -46,6 +45,7 @@ help_message = """
  > quadratic (a, b, c) - calculates roots
  > rle (string) - run length encodes given string
  > rld (string) - run length decodes given string
+ > wikipedia (term) - sends a summary of given wikipedia page
 
 **Moderation Commands:**
  > mute (@user @user ...) - mute target
@@ -89,11 +89,12 @@ async def cat(msg, args, client=None):
 
 async def wikipedia(msg, args, client=None):
     arg = ' '.join(args)
-    page = WIKI.page(arg)
-    if page.exists():
-        await msg.channel.send(page.summary)
-    else:
-        await msg.channel.send('Page does not exist')
+    try:
+        page = wikipedia.page(arg)
+        await msg.channel.send(page.content)
+        await msg.channel.send(page.url)
+    except DisambiguationError:
+        await msg.channel.send('Multiple articles match that term. Please be more specific.')
 
 async def avatar(msg, args, client=None):
     if len(msg.mentions) > 0:
