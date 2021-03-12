@@ -2,7 +2,7 @@ import discord, datetime
 from discord.ext import commands
 from Modules import bot_cmds, bot_util
 
-TOKEN = 'NzMyNzQ2ODcwMDYwNzQ0ODI2.Xw5Fsw.NkjPx15_gfhGCHzo2HoN9OER6Sc'
+TOKEN = ''
 PREFIX = '-'
 
 ALIASES = {
