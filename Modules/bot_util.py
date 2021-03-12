@@ -82,6 +82,7 @@ async def greyscale_image(imgbytes):
         return discord.File(imgbinary, filename='image.png')
 
 async def blend_images(imgbytes1, imgbytes2):
+    #todo
     return
 
 async def get_role_by_name(guild, rolename):
