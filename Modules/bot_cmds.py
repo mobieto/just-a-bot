@@ -44,8 +44,8 @@ help_message = """
  > greyscale [@user] - sends a greyscaled version of profile picture
  > binomialexpand (a, b, n) - expands expression using binomial expansion (a + b)^2 -> a^2 + 2ab + b^2
  > quadratic (a, b, c) - calculates roots
- > rle (string) - run length encodes given string
- > rld (string) - run length decodes given string
+ > rle (string) - compresses given string using run length encoding
+ > rld (string) - decompresses given string
  > wikipedia (term) - sends a summary of given wikipedia page
 
 **Moderation Commands:**
