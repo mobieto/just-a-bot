@@ -1,0 +1,2 @@
+# swegbot
+a Discord bot
