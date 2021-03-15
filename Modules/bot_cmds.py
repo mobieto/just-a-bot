@@ -1,4 +1,4 @@
-import os, io, discord, json, random, aiohttp, aiowiki, time
+import discord, json, random, aiohttp, aiowiki, time
 from Modules import bot_util
 from PIL import ImageFilter
 
