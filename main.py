@@ -11,7 +11,6 @@ ALIASES = {
         'lovecalculator': ['lcalculator', 'lc'],
         'eightball': ['8ball'],
         'binomialexpand': ['bexpand'],
-        'amongus': ['amogus', 'sus', 'impostor'],
         'wikipedia': ['wiki']
     }
 
