@@ -1,5 +1,5 @@
 import discord, io, aiohttp, math
-from PIL import Image, ImageDraw
+from PIL import Image
 
 session = aiohttp.ClientSession()
 
